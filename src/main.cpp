@@ -1,10 +1,12 @@
+#include "board.hpp"
 #include <iostream>
-#include "../include/board.hpp"
 
 int main()
 {
     std::cout << "Chess engine starting...\n";
     Board board;
+
+    board.print_board();
 
     return 0;
 }
