@@ -33,3 +33,9 @@ bool Game::init()
     render(sdl.getWindow(), sdl.getRenderer());
     return true;
 }
+
+void Game::onQuit()
+{
+    sdl.clear();
+    isRunning = false;
+}
