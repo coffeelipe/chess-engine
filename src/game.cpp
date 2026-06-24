@@ -34,6 +34,24 @@ bool Game::init()
     return true;
 }
 
+void Game::render(SDL_Window *window, SDL_Renderer *renderer)
+{
+    SDL_RenderPresent(renderer);
+}
+
+void Game::handleEvent(const SDL_Event &event)
+{
+    switch (event.type)
+    {
+    case SDL_EVENT_QUIT:
+        onQuit();
+        break;
+
+    default:
+        break;
+    }
+}
+
 void Game::onQuit()
 {
     sdl.clear();
