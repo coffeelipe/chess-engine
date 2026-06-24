@@ -85,3 +85,13 @@ void SDLManager::drawBoard()
         dest.y += squareSize;
     }
 }
+
+void SDLManager::drawPieces(U64 position)
+{
+}
+
+void SDLManager::clear() {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+}
