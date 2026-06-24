@@ -20,3 +20,16 @@ void Game::run()
         }
     }
 }
+
+bool Game::init()
+{
+    std::cout << "Chess Engine starting...";
+    board.print_board();
+    if (!sdl.init())
+    {
+        return false;
+    }
+    sdl.drawBoard();
+    render(sdl.getWindow(), sdl.getRenderer());
+    return true;
+}
