@@ -5,7 +5,7 @@
 class Game
 {
 public:
-    void run();
+    int run();
 
 private:
     bool init();

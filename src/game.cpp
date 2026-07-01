@@ -3,22 +3,23 @@
 #include <SDL3/SDL.h>
 #include <iostream>
 
-void Game::run()
+int Game::run()
 {
     if (!init())
     {
         std::cout << "Failed to initialize game, exiting...";
         onQuit();
+        return 1;
     }
-    else
+
+    SDL_Event event;
+    while (isRunning)
     {
-        SDL_Event event;
-        while (isRunning)
-        {
-            SDL_WaitEvent(&event);
-            handleEvent(event);
-        }
+        SDL_WaitEvent(&event);
+        handleEvent(event);
     }
+
+    return 0;
 }
 
 bool Game::init()
