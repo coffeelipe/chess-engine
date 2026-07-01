@@ -1,6 +1,7 @@
 #include "sdl_manager.hpp"
 #include "sdl_fwd.hpp"
 #include "board.hpp"
+#include "renderer.hpp"
 
 class Game
 {
@@ -9,11 +10,13 @@ public:
 
 private:
     bool init();
-    void handleEvent(const SDL_Event &event);
-    void onQuit();
-    void render(SDL_Window *window, SDL_Renderer *renderer);
+    void handleEvent(AppEvent event);
 
-    bool isRunning = true;
+    // Event handlers:
+    void onQuit();
+
     SDLManager sdl;
+    Renderer renderer;
     Board board;
+    bool isRunning = true;
 };
