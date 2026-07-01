@@ -1,6 +1,5 @@
 #include "game.hpp"
 
-#include <SDL3/SDL.h>
 #include <iostream>
 
 int Game::run()
@@ -8,14 +7,16 @@ int Game::run()
     if (!init())
     {
         std::cout << "Failed to initialize game, exiting...";
-        onQuit();
+        sdl.clear();
         return 1;
     }
 
-    SDL_Event event;
+    AppEvent event{};
+    int counter = 0;
     while (isRunning)
     {
-        SDL_WaitEvent(&event);
+        if (!sdl.waitEvent(event))
+            continue;
         handleEvent(event);
     }
 
@@ -24,27 +25,23 @@ int Game::run()
 
 bool Game::init()
 {
-    std::cout << "Chess Engine starting...";
+    std::cout << "Chess Engine starting...\n";
     board.print_board();
     if (!sdl.init())
     {
         return false;
     }
-    sdl.drawBoard();
-    render(sdl.getWindow(), sdl.getRenderer());
+    renderer.setRenderer(sdl.getRenderer());
+    renderer.drawBoard();
+    renderer.renderPresent();
     return true;
 }
 
-void Game::render(SDL_Window *window, SDL_Renderer *renderer)
-{
-    SDL_RenderPresent(renderer);
-}
-
-void Game::handleEvent(const SDL_Event &event)
+void Game::handleEvent(const AppEvent event)
 {
     switch (event.type)
     {
-    case SDL_EVENT_QUIT:
+    case AppEventType::CHESS_QUIT:
         onQuit();
         break;
 
