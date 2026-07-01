@@ -11,6 +11,7 @@ add_executable(chess-engine)
 target_sources(chess-engine PRIVATE
     src/main.cpp
     src/board.cpp
+    src/renderer.cpp
     src/sdl_manager.cpp
     src/game.cpp
 )
