@@ -1,4 +1,4 @@
-#include "common.hpp"
+#include "app_events.hpp"
 #include "sdl_fwd.hpp"
 
 class SDLManager
@@ -7,12 +7,13 @@ public:
     bool init();
     SDL_Window *getWindow();
     SDL_Renderer *getRenderer();
-
-    void drawBoard();
-    void drawPieces(U64 position);
     void clear();
 
+    bool waitEvent(AppEvent &event);
+
 private:
-    SDL_Window *window;
-    SDL_Renderer *renderer;
+    void mapEventType(const SDL_Event& sdlEvent, AppEvent& event);
+
+    SDL_Window *window = nullptr;
+    SDL_Renderer *renderer = nullptr;
 };
