@@ -1,5 +1,6 @@
 #include "renderer.hpp"
 #include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h>
 
 Renderer::Renderer(SDL_Renderer *renderer) : renderer(renderer) {}
 
@@ -87,6 +88,33 @@ void Renderer::drawBoard()
     }
 
     SDL_DestroyTexture(rowTexture);
+}
+
+bool Renderer::loadPieceTextures()
+{
+    // TODO: Use a loop to load textures for all pieces instead of hardcoding each one.
+    // TODO: Configure the path to the assets folder dynamically instead of hardcoding it.
+    
+    std::array<std::string, 6> suffixes = {"pawn", "rook", "knight", "bishop", "queen", "king"};
+
+    for (int i = 0; i < 12; i++)
+    {
+        std::string prefix = (i < 6) ? "w" : "b";
+        std::string suffix = (i < 6) ? suffixes[i] : suffixes[i - 6];
+        std::string key = std::format("{}_{}", prefix, suffix);
+        std::string fileName = std::format("{}-{}", (prefix == "w" ? "white" : "black"), suffix);
+        std::string path = "../assets/pieces/" + fileName + ".png";
+        SDL_Texture *currentTexture = IMG_LoadTexture(renderer, path.c_str());
+
+        if (!currentTexture)
+        {
+            SDL_Log("Failed to load %s: %s", fileName.c_str(), SDL_GetError());
+            return false;
+        }
+
+        pieces.insert({key, currentTexture});
+    }
+    return true;
 }
 
 void Renderer::renderPresent()
