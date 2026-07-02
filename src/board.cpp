@@ -1,8 +1,6 @@
 #include "common.hpp"
 #include "board.hpp"
 
-#include <iostream>
-
 void Board::print_board()
 {
     using std::cout;
