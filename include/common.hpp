@@ -2,6 +2,12 @@
 #define COMMON_HPP
 
 #include <cstdint>
+#include <map>
+#include <string>
+#include <array>
+#include <format>
+#include <iostream>
+
 typedef uint64_t U64;
 
 #endif // COMMON_HPP
