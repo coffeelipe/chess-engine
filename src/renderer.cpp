@@ -124,3 +124,15 @@ void Renderer::renderPresent()
         SDL_RenderPresent(renderer);
     }
 }
+
+void Renderer::destroyTextures()
+{
+    for (auto &[key, texture] : pieces)
+    {
+        if (texture)
+        {
+            SDL_DestroyTexture(texture);
+        }
+    }
+    pieces.clear();
+}
