@@ -1,12 +1,11 @@
 #include "game.hpp"
-
-#include <iostream>
+#include "common.hpp"
 
 int Game::run()
 {
     if (!init())
     {
-        std::cout << "Failed to initialize game, exiting...";
+        std::cout << "Failed to initialize game, exiting...\n";
         sdl.clear();
         return 1;
     }
@@ -32,7 +31,13 @@ bool Game::init()
         return false;
     }
     renderer.setRenderer(sdl.getRenderer());
+    if (!renderer.loadPieceTextures())
+    {
+        renderer.destroyTextures();
+        return false;
+    }
     renderer.drawBoard();
+
     renderer.renderPresent();
     return true;
 }
@@ -52,6 +57,7 @@ void Game::handleEvent(const AppEvent event)
 
 void Game::onQuit()
 {
+    renderer.destroyTextures();
     sdl.clear();
     isRunning = false;
 }
